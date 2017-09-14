@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title> Create Recipe </title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+
+</head>
+<body>
+<section class="container">
+<article>
+<form>
+  <div class="row">
+  <div class="col-md-12">
+      <div class="form-row">
+<div class="form-group col-md-12">
+  <label> Recipe Name: </label>
+<input type="text" class="form-control" id="name" placeholder="Enter Recipe Name">
+</div>
+</div>
+</div>
+<div class="col-md-12">
+  <div class="form-row">
+    <div class"form-group col-md-6">
+      <label>Prep Time:</label>
+    <input type="number" step=".01" min="0" class="form-control">
+    </div>
+    <div class"form-group col-md-6">
+      <label>Cook Time: </label>
+    <input type="number" step=".01" min="0" class="form-control">
+    </div>
+  </div>
+</div>
+<div class="col-md-12">
+  <div class="row">
+<div class="form-group col-md-12">
+  <label>Description: </label>
+  <textarea class="form-control" rows="3" cols="15" maxlength="250">  </textarea>
+
+
+</div>
+</div>
+</div>
+<div class="col-md-12">
+  <div class="row">
+<div class="form-group col-md-12">
+  <label>Ingredients: </label>
+</div>
+<div class"form-group col-md-3">
+<input type="number" step=".01" min="0" class="form-control">
+</div>
+
+<div class="form-group col-md-3">
+  <select class="form-control" id="exampleFormControlSelect1">
+      <option>cup</option>
+      <option>oz.</option>
+      <option>fl oz.</option>
+      <option>tsp.</option>
+      <option>tbsp.</option>
+      <option>mL</option>
+      <option>g</option>
+      <option>lb</option>
+      <option>L</option>
+      <option>kg</option>
+    </select>
+</div>
+<div class"form-group col-md-3">
+<input type="text" class="form-control" placeholder="Ingredient Name">
+</div>
+
+<div class"form-group col-md-3">
+  <button type="button" class="btn btn-dark"><span class="fa fa-plus-square" aria-hidden="true"></span></button>
+
+</div>
+
+</div>
+</div>
+
+
+<div class="col-md-12">
+  <div class="form-row">
+  <div class="form-group">
+    <label>Steps: </label>
+    <textarea class="form-control" rows="3" cols="15" maxlength="250">  </textarea>
+  </div>
+</div>
+</div>
+
+<div class="col-md-12">
+  <div class="form-row">
+  <div class="form-group col-md-6">
+    <button type="button" class="btn btn-success">Save</button>
+  </div>
+  <div class="form-group col-md-6">
+    <button type="button" class="btn btn-secondary">Cancel</button>
+  </div>
+</div>
+</div>
+
+</form>
+</article>
+</section>
+
+
+<script src="https://use.fontawesome.com/a5c000741d.js"></script>
+
+
+
+</body>
+</html>
