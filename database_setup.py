@@ -14,6 +14,13 @@ class User(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(80), nullable= False)
 
+    @property
+    def serialize(self):
+        return{
+            'name' :self.name,
+            'id'   : self.id,
+    }
+
 class Recipe(Base):
     __tablename__='recipe'
 
@@ -22,8 +29,22 @@ class Recipe(Base):
     description = Column(String(250))
     prep_time= Column(DateTime, )
     cook_time= Column(DateTime, )
+    category_name = Column(Integer, ForeignKey('categories.id'))
     user_id= Column(Integer, ForeignKey('user.id'))
     user = relationship(User)
+    category=relationship(Category)
+
+    @property
+    def serialize(self):
+        return{
+            'name' :self.name,
+            'id'   : self.id,
+            'description': self.description,
+            'prep_time': self.prep_time
+            'cook_time': self.cook_time,
+            'category': self.category_name
+
+    }
 
 class Ingredients(Base):
     __tablename__='ingredient'
@@ -31,11 +52,29 @@ class Ingredients(Base):
     ingredient_name= Column(String(80), nullable=False)
     id = Column(Integer, primary_key=True, autoincrement=True)
 
+        @property
+        def serialize(self):
+            return{
+                'name' :self.ingredient_name,
+                'id'   : self.id,
+
+
+        }
+
 class Measurements(Base):
     __tablename__='measurement'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     measurement_name= Column(String(80), nullable=False)
+
+            @property
+            def serialize(self):
+                return{
+                    'name' :self.measurement_name,
+                    'id'   : self.id,
+
+
+            }
 
 class IngredientList(Base):
     __tablename__= 'ingredientlist'
@@ -58,8 +97,19 @@ class Steps(Base):
     step_description= Column(String(500), nullable=False)
     recipe= relationship(Recipe)
 
+class Categories(Base):
+    __tablename__-'categories'
+
+    id= Column(Integer, primary_key=True, autoincrement=True)
+    name= Column(String(80))
+        @property
+        def serialize(self):
+            return{
+                'name' :self.name,
+                'id'   : self.id,
 
 
+        }
 
 engine = create_engine('sqlite:///catalog.db')
 

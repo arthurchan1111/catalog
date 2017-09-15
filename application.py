@@ -39,7 +39,7 @@ def newRecipe():
 
 @app.route('/recipe/<int:recipe_id>/edit')
 def editRecipe(recipe_id):
-    return "This is to edit recipe %s" % recipe_id
+    return render_template('createrecipe.html')
 
 @app.route('/recipe/<int:recipe_id>/delete')
 def deleteRecipe(recipe_id):
