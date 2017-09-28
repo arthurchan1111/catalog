@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head >
+  {% block head %}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+<link rel="stylesheet" href="{{url_for('static', filename='base.css')}}">
+<title>{% block title %} {% endblock %} </title>
+  {% endblock %}
+</head>
+
+<body  >
+  <nav class="navbar navbar-dark bg-dark">
+    {% block nav %}
+    <a class="navbar-brand" href="#">Catalog</a>
+    <form class="form-inline">
+            <button type="button" class="btn btn-primary">Sign In</button>
+           </form>
+    {% endblock %}
+  </nav>
+
+
+{% block content %}
+{% endblock %}
+
+
+
+
+
+
+{% block scripts %}
+<script src="https://use.fontawesome.com/a5c000741d.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script src="{{url_for('static', filename='app.js')}}"></script>
+<script src="{{url_for('static', filename='recipecontroller.js')}}"></script>
+{% endblock %}
+
+</body>
+</html>

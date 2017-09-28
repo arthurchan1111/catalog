@@ -1,99 +1,119 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title> Create Recipe </title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+d {% extends "base.html" %}
+{% block title %}Create{% endblock %}
+{% block head %}
 
-
-</head>
-<body>
-<section class="container">
+  {{ super() }}
+<style>
+h3{
+  padding-top: 3%;
+}
+</style>
+{% endblock %}
+{% block content %}
+<section class="container" ng-app="recipelist" ng-controller="recipectrl">
 <article>
-<form>
-  <div class="row">
-  <div class="col-md-12">
-      <div class="form-row">
+  <h3> Create Recipe </h3>
+<form action="{{url_for('newRecipe')}}" method="POST">
+  <div class=" form-row">
+
+
 <div class="form-group col-md-12">
   <label> Recipe Name: </label>
-<input type="text" class="form-control" id="name" placeholder="Enter Recipe Name">
+<input type="text" class="form-control" id="name" name="recipe_name" placeholder="Enter Recipe Name">
 </div>
-</div>
-</div>
-<div class="col-md-12">
-  <div class="form-row">
-    <div class"form-group col-md-6">
-      <label>Prep Time:</label>
-    <input type="number" step=".01" min="0" class="form-control">
-    </div>
-    <div class"form-group col-md-6">
-      <label>Cook Time: </label>
-    <input type="number" step=".01" min="0" class="form-control">
-    </div>
-  </div>
-</div>
-<div class="col-md-12">
-  <div class="row">
+
 <div class="form-group col-md-12">
+
   <label>Description: </label>
-  <textarea class="form-control" rows="3" cols="15" maxlength="250">  </textarea>
+  <textarea class="form-control" rows="3" cols="15" maxlength="250" name="description">  </textarea>
+
+</div>
+
+<div class="form-group col-md-6">
+<label>Prep Time:</label>
+</div>
+<div class="form-group col-md-6">
+<label>Cook Time:</label>
+</div>
+  <div class="form-group col-md-3">
+
+    <input type="number" step="1" min="0" name="prep_hours" placeholder="Hours" class="form-control">
+    </div>
+  <div class="form-group col-md-3">
+  <input type="number" step="1" min="1" max="59" name="prep_minutes" placeholder="Minutes"  class="form-control">
+  </div>
+
+  <div class="form-group col-md-3">
+    <input type="number" step="1" min="0" name="cook_hours" placeholder="Hours" class="form-control">
+    </div>
+  <div class="form-group col-md-3">
+  <input type="number" step="1" min="1" max="59" name="cook_minutess" placeholder="Minutes"  class="form-control">
+  </div>
 
 
-</div>
-</div>
-</div>
-<div class="col-md-12">
-  <div class="row">
+<div class="form-group col-md-12">
+      <label>Category:</label>
+    <input list="categories" name="categories" class="form-control">
+    <datalist id="categories">
+      <option value ="BBQ &amp; Grilling"></option>
+      <option value = "Pasta"> </option>
+      <option value = "Casseroles"> </option>
+      <option value = "Soups &amp; Stews"> </option>
+      <option value = "Rice &amp; Beans"> </option>
+      <option value = "Meats"> </option>
+      <option value = "Salads"> </option>
+    </datalist>
+  </div>
+
 <div class="form-group col-md-12">
   <label>Ingredients: </label>
 </div>
-<div class"form-group col-md-3">
-<input type="number" step=".01" min="0" class="form-control">
-</div>
 
+
+<div id="group" ng-repeat="x in ingredients" style="display: inline-flex">
 <div class="form-group col-md-3">
-  <select class="form-control" id="exampleFormControlSelect1">
-      <option>cup</option>
-      <option>oz.</option>
-      <option>fl oz.</option>
-      <option>tsp.</option>
-      <option>tbsp.</option>
-      <option>mL</option>
-      <option>g</option>
-      <option>lb</option>
-      <option>L</option>
-      <option>kg</option>
+<input type="number"  step=".01" min="0" name="quantity" ng-model="ingredient.quantity" id="quantity" placeholder="Quantity"  class="form-control">
+</div>
+<div class="form-group col-md-3">
+  <select class="form-control" name="measurement" ng-model="ingredient.measurement" id="exampleFormControlSelect1">
+      <option value="" disabled selected>Measurement</option>
+      <option value="cup">cup</option>
+      <option value="oz.">oz.</option>
+      <option value="fl oz.">fl oz.</option>
+      <option value="tsp.">tsp.</option>
+      <option value="tbsp.">tbsp.</option>
+      <option value="mL">mL</option>
+      <option value="g">g</option>
+      <option value="lb">lb</option>
+      <option value="L">L</option>
+      <option value="kg">kg</option>
     </select>
 </div>
-<div class"form-group col-md-3">
-<input type="text" class="form-control" placeholder="Ingredient Name">
+<div class="form-group col-md-3">
+<input type="text" class="form-control" name="ingredient_name" ng-model="ingredient.name" placeholder="Ingredient Name">
 </div>
-
-<div class"form-group col-md-3">
-  <button type="button" class="btn btn-dark"><span class="fa fa-plus-square" aria-hidden="true"></span></button>
-
-</div>
-
+<div class="form-group col-md-3">
+<button type="button" class="btn btn-dark" ng-click="addItem()"><span class="fa fa-plus-square" aria-hidden="true"></span></button>
+  <button type="button" class="close"><span ng-click="removeItem($index)">&times;</span></button>
 </div>
 </div>
 
 
-<div class="col-md-12">
-  <div class="form-row">
-  <div class="form-group">
+
+<div class="form-group col-md-12">
+
     <label>Steps: </label>
-    <textarea class="form-control" rows="3" cols="15" maxlength="250">  </textarea>
+    <textarea class="form-control" rows="3" cols="15" maxlength="250" name="step">  </textarea>
   </div>
-</div>
-</div>
+
 
 <div class="col-md-12">
   <div class="form-row">
   <div class="form-group col-md-6">
-    <button type="button" class="btn btn-success">Save</button>
+    <button type="submit" ng-click="senddata()" class="btn btn-success btn-block">Save</button>
   </div>
   <div class="form-group col-md-6">
-    <button type="button" class="btn btn-secondary">Cancel</button>
+    <button type="button" class="btn btn-secondary btn-block">Cancel</button>
   </div>
 </div>
 </div>
@@ -101,11 +121,8 @@
 </form>
 </article>
 </section>
+{% endblock %}
 
-
-<script src="https://use.fontawesome.com/a5c000741d.js"></script>
-
-
-
-</body>
-</html>
+{% block scripts %}
+  {{ super() }}
+{% endblock %}

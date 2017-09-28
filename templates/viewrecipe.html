@@ -1,53 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title> View Recipe </title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+{% extends "base.html" %}
+{% block title %}View Recipe {% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block nav %}
+{{super()}}
+{% endblock %}
 
-
-</head>
-<body>
-
-  <nav class="navbar navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Catalog</a>
-    <form class="form-inline">
-    <div id="signInButton">
-             <span class="g-signin"
-               data-scope="openid email"
-               data-clientid="42677905461-mm1vdsop364c4t1tmogip8jpcdanba2l.apps.googleusercontent.com"
-               data-redirecturi="postmessage"
-               data-accesstype="offline"
-               data-cookiepolicy="single_host_origin"
-               data-callback="signInCallback"
-               data-approvalprompt="force">
-             </span>
-           </div>
-           </form>
-  </nav>
-
+{% block content %}
   <section class="container">
     <div class="row">
-    <h2> Recipe Name </h2>
     <div class="col-md-12">
+    <h2>{{recipe.name}}</h2>
+  </div>
+  <div class="col-md-12">
+    <p></p>
+  </div>
+
     <div class="col-md-6">
       <p>Prep Time: </p>
     </div>
     <div class="col-md-6">
       <p> Cook Time: </p>
     </div>
+  </div>
+
+  <div class="col-md-12">
     <h4> Ingredients: </h4>
+  </div>
+  <div class="col-md-12">
       <ul>
         <li> </li>
       </ul>
+    </div>
+      <div class="col-md-12">
       <h4> Directions:</h4>
+    </div>
+    <div class="col-md-12">
       <ol>
         <li> </li>
       </ol>
-  </div>
+</div>
   </div>
   </section>
-
-
-</body>
-</html>
+{% endblock %}
