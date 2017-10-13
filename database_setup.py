@@ -11,7 +11,7 @@ Base = declarative_base()
 
 class User(Base):
     __tablename__ = 'user'
-    id = Column(Integer, primary_key=True, autoincrement=True)
+    id = Column(Integer, primary_key=True, autoincrement=True, unique=True)
     name = Column(String(80), nullable=False)
     email = Column(String(250), nullable=False)
 
@@ -19,8 +19,8 @@ class User(Base):
 class Categories(Base):
     __tablename__ = 'categories'
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    name = Column(String(80), nullable=False)
+    id = Column(Integer, primary_key=True, autoincrement=True, unique=True)
+    name = Column(String(80), nullable=False, unique=True)
 
     @property
     def serialize(self):
@@ -33,14 +33,14 @@ class Recipe(Base):
     __tablename__ = 'recipe'
 
     name = Column(String(80), nullable=False)
-    id = Column(Integer, primary_key=True, autoincrement=True)
+    id = Column(Integer, primary_key=True, autoincrement=True, unique=True)
     description = Column(String(250))
     prep_time = Column(Integer, nullable=False)
     cook_time = Column(Integer, nullable=False)
     category_id = Column(Integer, ForeignKey('categories.id'))
     user_id = Column(Integer, ForeignKey('user.id'))
-    user = relationship(User)
-    category = relationship(Categories)
+    user = relationship(User, cascade="delete")
+    category = relationship(Categories, cascade="delete")
 
     @property
     def serialize(self):
@@ -56,11 +56,11 @@ class Recipe(Base):
 class IngredientList(Base):
     __tablename__ = 'ingredientlist'
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
+    id = Column(Integer, primary_key=True, autoincrement=True, unique=True)
     ingredient = Column(String(80), nullable=False)
     ingredient_number = Column(Integer, nullable=False)
     recipe_id = Column(Integer, ForeignKey('recipe.id'))
-    recipe = relationship(Recipe)
+    recipe = relationship(Recipe, cascade="delete")
 
     @property
     def serialize(self):
@@ -75,11 +75,15 @@ class IngredientList(Base):
 class Steps(Base):
     __tablename__ = 'steps'
 
-    step_id = Column(Integer, primary_key=True, autoincrement=True)
+    step_id = Column(
+            Integer,
+            primary_key=True,
+            autoincrement=True,
+            unique=True)
     recipe_id = Column(Integer, ForeignKey('recipe.id'))
     step_number = Column(Integer, nullable=False)
     step_description = Column(String(1000), nullable=False)
-    recipe = relationship(Recipe)
+    recipe = relationship(Recipe, cascade="delete")
 
     @property
     def serialize(self):
@@ -88,6 +92,7 @@ class Steps(Base):
             'step_number': self.step_number,
             'step_description': self.step_description
         }
+
 
 engine = create_engine('sqlite:///catalog.db')
 
