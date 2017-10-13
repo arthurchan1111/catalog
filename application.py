@@ -486,8 +486,8 @@ def gconnect():
         return response
     # Check if access token is valid
     access_token = credentials.access_token
-    url = 'https://www.googleapis.com/oauth2/v1/tokeninfo'
-    +'?access_token=%s' % access_token
+    url = 'https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=%s' \
+        % access_token
     h = httplib2.Http()
     result = json.loads(h.request(url, 'GET')[1])
     # If error abort
@@ -559,8 +559,8 @@ def gdisconnect():
         response.headers['Content-Type'] = 'application/json'
         return response
 
-    url = 'https://accounts.google.com/o/oauth2/'
-    + 'revoke?token=%s' % login_session['access_token']
+    url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' \
+        % login_session['access_token']
     h = httplib2.Http()
     result = h.request(url, 'GET')[0]
 
