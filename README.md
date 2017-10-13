@@ -6,14 +6,19 @@ delete or update their recipes.
 ## Dependencies
 
 [Flask 0.9](http://flask.pocoo.org/docs/0.12/installation/)
+
 [SQLite 2.6.0](https://www.sqlite.org/download.html)
+
 [SQL Alchemy 1.1.10](https://www.sqlalchemy.org/download.html)
+
 [Bootstrap](http://getbootstrap.com/)
 
 If using vagrant you can ignore the above:
 
 [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+
 [Vagrant](https://www.vagrantup.com/downloads.html)
+
 [Vagrant Config File](https://github.com/udacity/fullstack-nanodegree-vm)
 
 ## Installation
@@ -24,21 +29,18 @@ If using vagrant you can ignore the above:
 
 ```
 vagrant up
-
 ```
 
 2. Once finished type in:
 
 ```
 vagrant ssh
-
 ```
 
 3. Once logged in type:
 
 ```
 cd /vagrant
-
 ```
 
 
@@ -86,13 +88,11 @@ Copy the files into catalog directory of the [Vagrant Config File](https://githu
 
 ```
 python database_setup.py
-
 ```
 2. Then type in:
 
 ```
 python application.py
-
 ```
 
 3. In your browser type in http://0.0.0.0:5000 or http://localhost:5000
