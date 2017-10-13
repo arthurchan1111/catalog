@@ -1,5 +1,5 @@
 import sys
-from sqlalchemy import Column, ForeignKey,Float, Integer, String, Enum, DateTime
+from sqlalchemy import Column, ForeignKey, Float, Integer, String
 
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -8,112 +8,86 @@ from sqlalchemy import create_engine
 
 Base = declarative_base()
 
+
 class User(Base):
     __tablename__ = 'user'
     id = Column(Integer, primary_key=True, autoincrement=True)
-    name = Column(String(80), nullable= False)
+    name = Column(String(80), nullable=False)
+    email = Column(String(250), nullable=False)
 
-    @property
-    def serialize(self):
-        return{
-            'name' :self.name,
-            'id'   : self.id,
-    }
-
-class Ingredients(Base):
-    __tablename__='ingredient'
-
-    ingredient_name= Column(String(80), nullable=False)
-    id = Column(Integer, primary_key=True, autoincrement=True)
-
-    @property
-    def serialize(self):
-        return{
-            'name' :self.ingredient_name,
-            'id'   : self.id,
-
-
-        }
-
-class Measurements(Base):
-    __tablename__='measurement'
-
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    measurement_name = Column(String(80), nullable=False)
-
-    @property
-    def serialize(self):
-        return{
-            'name' :self.measurement_name,
-            'id'   : self.id,
-
-
-        }
 
 class Categories(Base):
-    __tablename__='categories'
+    __tablename__ = 'categories'
 
-    id= Column(Integer, primary_key=True, autoincrement=True)
-    name= Column(String(80))
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    name = Column(String(80), nullable=False)
+
     @property
     def serialize(self):
         return{
-            'name' :self.name,
-            'id'   : self.id,
-
-
+            'name': self.name
         }
-class Recipe(Base):
-    __tablename__='recipe'
 
-    name= Column(String(80), nullable=False)
-    id= Column(Integer, primary_key=True, autoincrement=True)
+
+class Recipe(Base):
+    __tablename__ = 'recipe'
+
+    name = Column(String(80), nullable=False)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     description = Column(String(250))
-    prep_time= Column(Integer, nullable=False)
-    cook_time= Column(Integer, nullable=False)
-    category_name = Column(Integer, ForeignKey('categories.id'))
-    user_id= Column(Integer, ForeignKey('user.id'))
+    prep_time = Column(Integer, nullable=False)
+    cook_time = Column(Integer, nullable=False)
+    category_id = Column(Integer, ForeignKey('categories.id'))
+    user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship(User)
-    category= relationship(Categories)
+    category = relationship(Categories)
 
     @property
     def serialize(self):
         return{
-            'name' :self.name,
-            'id'   : self.id,
+            'name': self.name,
+            'id': self.id,
             'description': self.description,
             'prep_time': self.prep_time,
             'cook_time': self.cook_time,
-            'category': self.category_name
+            }
 
-    }
 
 class IngredientList(Base):
-    __tablename__= 'ingredientlist'
+    __tablename__ = 'ingredientlist'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    quantity= Column(Float, nullable=False)
-    ingredient_id= Column(Integer, ForeignKey('ingredient.id'))
-    measurement_id = Column(Integer, ForeignKey('measurement.id'))
+    ingredient = Column(String(80), nullable=False)
+    ingredient_number = Column(Integer, nullable=False)
     recipe_id = Column(Integer, ForeignKey('recipe.id'))
-    ingredient = relationship(Ingredients)
-    measurement = relationship(Measurements)
-    recipe= relationship(Recipe)
+    recipe = relationship(Recipe)
+
+    @property
+    def serialize(self):
+        return{
+
+            'id': self.id,
+            'ingredient': self.ingredient
+
+            }
+
 
 class Steps(Base):
-    __tablename__='steps'
+    __tablename__ = 'steps'
 
-    step_id= Column(Integer, primary_key=True, autoincrement=True)
+    step_id = Column(Integer, primary_key=True, autoincrement=True)
     recipe_id = Column(Integer, ForeignKey('recipe.id'))
-    step_number= Column(Integer, nullable= False)
-    step_description= Column(String(500), nullable=False)
-    recipe= relationship(Recipe)
+    step_number = Column(Integer, nullable=False)
+    step_description = Column(String(1000), nullable=False)
+    recipe = relationship(Recipe)
 
-
-
-
-
-
+    @property
+    def serialize(self):
+        return{
+            'id': self.step_id,
+            'step_number': self.step_number,
+            'step_description': self.step_description
+        }
 
 engine = create_engine('sqlite:///catalog.db')
 

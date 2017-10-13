@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block title %}Edit Recipe{% endblock %}
+{% block head %}
+
+  {{ super() }}
+<style>
+h3{
+  padding-top: 3%;
+}
+</style>
+{% endblock %}
+{% block content %}
+<section class="container">
+<article>
+  <h3> Edit Recipe </h3>
+<form action="{{url_for('editRecipe', recipe_id=recipe_id)}}"  method="POST">
+  <div class="form-row">
+
+
+<div class="form-group col-md-12">
+  <label> Recipe Name: </label>
+<input type="text" class="form-control" id="name" name="recipe_name" value="{{recipe.name}}" placeholder="Enter Recipe Name">
+</div>
+
+<div class="form-group col-md-12">
+
+  <label>Description: </label>
+  <textarea class="form-control" rows="3" cols="15" maxlength="250" name="description" placeholder="Enter Description">{{recipe.description}}</textarea>
+
+</div>
+
+<div class="form-group col-md-6">
+<label>Prep Time:</label>
+</div>
+<div class="form-group col-md-6">
+<label>Cook Time:</label>
+</div>
+  <div class="form-group col-md-3">
+
+    <input type="number" step="1" min="0" name="prep_hours" value="{{prep_time[0]}}" placeholder="Hours" class="form-control">
+    </div>
+  <div class="form-group col-md-3">
+  <input type="number" step="1" min="1" max="59" name="prep_minutes" value="{{prep_time[1]}}" placeholder="Minutes"  class="form-control">
+  </div>
+
+  <div class="form-group col-md-3">
+    <input type="number" step="1" min="0" name="cook_hours" value="{{cook_time[0]}}" placeholder="Hours" class="form-control">
+    </div>
+  <div class="form-group col-md-3">
+  <input type="number" step="1" min="1" max="59" name="cook_minutes" value="{{cook_time[1]}}"  placeholder="Minutes"  class="form-control">
+  </div>
+
+
+<div class="form-group col-md-12">
+      <label>Category:</label>
+    <input list="categories" name="categories" value="{{specific_category.name.title()}}" class="form-control" autocomplete="off">
+    <datalist id="categories">
+      {% for c in category %}
+      <option value="{{c.name.title()}}"></option>
+      {% endfor %}
+    </datalist>
+  </div>
+
+<div class="form-group col-md-12">
+
+    <label>Ingredients: </label>
+    <textarea class="form-control" rows="7" cols="15" name="ingredient" placeholder="Enter each ingredient, quantity and measurement abbreviation on one line seperated by space">{% for i in ingredient %}{% if i != ingredient|length-1 %}{{i.ingredient+"\n"}}{% else %}{{i.ingredient}}{% endif %}{% endfor %}</textarea>
+  </div>
+<div class="form-group col-md-12">
+    <label>Steps: </label>
+
+    <textarea class="form-control" rows="7" cols="15"  name="step" placeholder="Enter each step per line">{% for step in steps %}{% if step != steps|length-1  %}{{step.step_description+"\n"}}{% else %}{{steps.step_description}}{% endif %}{% endfor %}</textarea>
+
+  </div>
+<div class="col-md-12">
+  <div class="form-row">
+  <div class="form-group col-md-6">
+    <button type="submit" class="btn btn-success btn-block">Save</button>
+  </div>
+  <div class="form-group col-md-6">
+    <button type="button"  class="btn btn-secondary btn-block">Cancel</button>
+  </div>
+</div>
+
+</div>
+
+</form>
+</article>
+</section>
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+{% endblock %}

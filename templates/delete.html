@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Delete Recipe{% endblock %}
+{% block head %}
+
+  {{ super() }}
+<style>
+h3{
+  padding-top: 3%;
+}
+#confirmation{
+
+  padding-bottom: 5%;
+}
+</style>
+{% endblock %}
+{% block content %}
+<section class="container">
+<div class="container">
+<h3>{{recipe.name}}</h3>
+</div>
+<div class="container">
+<p>You are about to delete this recipe. To confirm please retype the recipe name below. Otherwise click <a href='{{url_for("index")}}'>here</a> to return back to the home page.</p>
+</div>
+<div class="container">
+<form action="{{url_for('deleteRecipe', recipe_id=recipe_id)}}" method="POST" id="confirmation">
+<div class="form-group">
+<input type="text" class="form-control" placeholder ="Enter Name of this Recipe" name="confirm">
+
+</div>
+<button type="submit" class="btn btn-primary btn-block">Confirm</button>
+</form>
+</div>
+</section>
+
+
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+{% endblock %}

@@ -8,13 +8,31 @@
 {% endblock %}
 
 {% block content %}
+{{super()}}
 <section class="container">
+
   <div class="row">
+<article class="col-md-12">
+  <div class = 'flash'>
+  		      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+
+          <ul>
+          {% for message in messages %}
+              <li> <strong> {{ message }} </strong> </li>
+          {% endfor %}
+          </ul>
+          {% endif %}
+      {% endwith %}
+
+  </div>
+</article>
 <article class="col-md-6">
+
 <h3>Categories</h3>
 {% for i in categories %}
 <ul>
-<li><a href='{{url_for("category", category = i.name)}}'>{{i.name}}</a> </li>
+<li><a href='{{url_for("category", category = i.name)}}'>{{i.name.title()}}</a> </li>
 </ul>
 {% endfor %}
 </article>

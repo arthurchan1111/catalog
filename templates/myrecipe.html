@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}My Recipes{% endblock %}
+{% block head %}
+  {{ super() }}
+  <style>
+  .pull-right{
+    margin-right: 10px
+  }
+  .container{
+    padding-top:3%;
+    padding-bottom: 3%;
+  }
+  .list-group{
+    margin-top: 2%;
+  }
+  </style>
+  {% endblock %}
+  {% block content %}
+
+<section class="container">
+  <div class="row">
+    <div class="col-md-12">
+  <h3> My Recipes </h3>
+<ul class="list-group">
+{% for i in recipe %}
+<li class="list-group-item">
+  <a href="{{url_for('showRecipe', recipe_id= i.id)}}">{{i.name}}</a>
+  <a class="pull-right" href="{{url_for('deleteRecipe', recipe_id= i.id)}}">Delete</a>
+  <a class="pull-right" href="{{url_for('editRecipe', recipe_id= i.id)}}">Edit</a>
+</li>
+
+
+{% endfor %}
+</ul>
+</div>
+</div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  {% endblock %}
+
+  {% block scripts %}
+    {{ super() }}
+  {% endblock %}
