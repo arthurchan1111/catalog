@@ -84,12 +84,30 @@ Copy the files into catalog directory of the [Vagrant Config File](https://githu
 
 ### Set up database and start application
 
-1. Go to the root directory of this project and type:
+1. In the terminal type in:
+
+```
+psql
+```
+
+2. Then enter the command below to create a blank database:
+
+```
+CREATE DATABASE catalog;
+```
+
+Type in to exit out of the postgresql terminal:
+
+```
+\q
+```
+
+3. Go to the root directory of this project and type:
 
 ```
 python database_setup.py
 ```
-2. Then type in:
+4. Then type in:
 
 ```
 python application.py
